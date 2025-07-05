@@ -83,7 +83,7 @@ async function gestisciRuolo(email:string,ruolo:string){
     window.location.reload()
 }
 
-export const columns: ColumnDef<Utenti>[] = [
+const columns: ColumnDef<Utenti>[] = [
     {
         accessorKey: "email",
         header: ({ column }) => {
