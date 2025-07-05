@@ -4,7 +4,7 @@ import { SetNewPasswordForm } from "@/app/components/frontOffice/setNewPassword-
 export default function setNewPassword({
     searchParams,
 }: {
-    searchParams: { token_hash?: string; type?: string };
+    searchParams: { token_hash: string; type: string };
 }) {
 
   const tokenHash = searchParams.token_hash;
