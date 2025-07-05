@@ -49,7 +49,7 @@ export default function BuoniCeliaci() {
               {/* Call to action */}
               <div className="mt-8 rounded-lg bg-marrone-scuro/5 p-6 text-md md:text-lg">
                 <p className="text-marrone-scuro font-medium">
-                  💡 <strong>Suggerimento:</strong> Porta sempre con te i buoni celiachia per non perdere l'opportunità
+                  💡 <strong>Suggerimento:</strong> Porta sempre con te i buoni celiachia per non perdere l&apos;opportunità
                   di risparmiare sui tuoi prodotti preferiti!
                 </p>
               </div>
@@ -78,7 +78,7 @@ export default function BuoniCeliaci() {
               </h4>
               <ul className="space-y-2 text-md text-marrone-scuro/80">
                 <li>• Buoni celiachia validi</li>
-                <li>• Documento d'identità</li>
+                <li>• Documento d&apos;identità</li>
                 <li>• Tessera sanitaria (se richiesta)</li>
               </ul>
             </div>

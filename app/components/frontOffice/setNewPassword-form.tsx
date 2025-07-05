@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
-import { useActionState, useEffect, useState } from "react"
+import { useActionState } from "react"
 import { setNewPassword } from "../../action"
 import Form from "next/form"
 //aggiungere controlli di autenticazione

@@ -2,7 +2,6 @@
 
 import { createSupabaseClient } from "@/utils/supabase/client"
 import { createSupabaseServer } from "@/utils/supabase/server"
-import { users } from "@/utils/types";
 import { redirect } from "next/navigation";
 
 const dbClient=createSupabaseClient();
@@ -102,7 +101,7 @@ export async function setNewPassword(currentState: actionState, formData: FormDa
     }
     
     // Usa verifyOtp per stabilire la sessione
-    const { data, error: verifyError } = await dbServer.auth.verifyOtp({
+    const { error: verifyError } = await dbServer.auth.verifyOtp({
         token_hash: tokenHash,
         type: 'recovery'
     });

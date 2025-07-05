@@ -1,4 +1,3 @@
-import { SignUpForm } from "@/app/components/frontOffice/signUp-form"
 import TemplateDiAccesso from "@/app/components/frontOffice/TemplateDiAccesso"
 import { SetNewPasswordForm } from "@/app/components/frontOffice/setNewPassword-form"
 

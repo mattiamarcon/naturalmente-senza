@@ -2,7 +2,7 @@
 
 import { SidebarTrigger } from "@/components/ui/sidebar"
 import { Button } from "@/components/ui/button"
-import { Bell, Eye } from "lucide-react"
+import {  Eye } from "lucide-react"
 import Link from "next/link"
 
 export function AdminHeader() {

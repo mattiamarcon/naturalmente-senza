@@ -1,7 +1,6 @@
 "use client"
 
 import Hero from "@/app/components/frontOffice/Hero";
-import Navbar from "@/app/components/frontOffice/Navbar";
 import NaturalmenteSenzaTypewriter from "@/app/components/frontOffice/NaturalmenteSenzaTypewriter";
 import Footer from "@/app/components/frontOffice/Footer";
 import { gsap } from "gsap"

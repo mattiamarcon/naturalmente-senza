@@ -4,8 +4,6 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useEffect, useRef, useState } from "react";
 import { createSupabaseClient } from '@/utils/supabase/client';
-import { button } from 'motion/react-client';
-import { Button } from '@/components/ui/button';
 
 function MenuNavigation(status:{status:boolean}) {
 

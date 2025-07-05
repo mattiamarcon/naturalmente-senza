@@ -15,7 +15,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import { Button } from "@/components/ui/button"
-import { BarChart3, Calendar, Clock, Home, LogOut, Settings, Utensils, Users, Store } from "lucide-react"
+import { BarChart3,   Home, LogOut,  Utensils, Users, Store } from "lucide-react"
 import { createSupabaseClient } from "@/utils/supabase/client"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"

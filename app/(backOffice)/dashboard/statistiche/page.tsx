@@ -1,14 +1,12 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Users, Eye, Globe, Monitor, Smartphone, Clock, MessageSquare } from "lucide-react"
+import { Users, Eye, Globe, Monitor, Smartphone, Clock } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 import { DashboardSkeleton } from "@/app/components/backOffice/skeletonStats"
 import { useRouter } from "next/navigation"
-import { createSupabaseClient } from "@/utils/supabase/client"
-
 
 interface webSiteData{
   activeUsers:number,
@@ -34,13 +32,6 @@ interface stats{
   x:string,
   y:number,
   percentage:number,
-}
-
-interface Review {
-  id: number
-  author: string
-  email: string
-  comment: string
 }
 
 export default function Dashboard() {

@@ -2,6 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Skeleton } from "@/components/ui/skeleton"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Globe, Monitor, Smartphone, Clock, MessageSquare } from "lucide-react"
+import React from "react"
 
 
 // Skeleton per le card delle metriche principali
@@ -19,7 +20,7 @@ export const MetricCardSkeleton = () => (
 )
 
 // Skeleton per le card delle statistiche (paesi, OS, dispositivi, browser)
-export const StatCardSkeleton = ({ title, icon: Icon }: { title: string; icon?: any }) => (
+export const StatCardSkeleton = ({ title, icon: Icon }: { title: string; icon?: React.ElementType}) => (
   <Card>
     <CardHeader>
       <CardTitle className="flex items-center">

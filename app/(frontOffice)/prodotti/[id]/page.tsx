@@ -5,13 +5,6 @@ import { useState,useEffect } from "react"
 import Footer from "@/app/components/frontOffice/Footer"
 import { ProductBadge, type Product } from "@/app/components/frontOffice/ProductCard"
 
-interface ProductPageProps {
-    id:string,
-    title: string
-    image:string
-    descrizione:string
-}
-
 const sampleBadges: ProductBadge[] = [
   { id: "gluten-free", label: "Senza Glutine", icon: "🌾" },
   { id: "sugar-free", label: "Senza Zucchero", icon: "🚫" },

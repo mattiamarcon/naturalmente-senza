@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useEffect, useRef } from "react"
+import {  useRef } from "react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/all"
 import { useGSAP } from "@gsap/react"
@@ -132,7 +132,7 @@ export default function PercheSceglierci() {
           {/* Header animato */}
           <div className="text-center mb-12">
             <h2 ref={titleRef} className="text-4xl md:text-5xl font-bold text-marrone-principale mb-6">
-              L'Importanza di <span className="text-oro">Mangiare Bene</span>
+              L&apos;Importanza di <span className="text-oro">Mangiare Bene</span>
             </h2>
             <div className="w-24 h-1 bg-oro mx-auto rounded-full"></div>
           </div>
@@ -188,8 +188,8 @@ export default function PercheSceglierci() {
             {/* Citazione finale */}
             <div className="mt-12 pt-8 border-t border-oro/20">
               <blockquote ref={quoteRef} className="text-center text-xl md:text-2xl italic text-marrone-principale/90 font-medium">
-                "Non è quello che mangi occasionalmente che conta, <br />
-                ma quello che mangi ogni giorno che fa la differenza."
+                &quot;Non è quello che mangi occasionalmente che conta, <br />
+                ma quello che mangi ogni giorno che fa la differenza.&quot;
               </blockquote>
             </div>
           </div>
