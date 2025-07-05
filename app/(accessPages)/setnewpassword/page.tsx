@@ -1,16 +1,17 @@
 import TemplateDiAccesso from "@/app/components/frontOffice/TemplateDiAccesso"
 import { SetNewPasswordForm } from "@/app/components/frontOffice/setNewPassword-form"
 
-export default function setNewPassword({
+export default async function setNewPassword({
     searchParams,
 }: {
-    searchParams: { token_hash: string; type: string };
+    searchParams: Promise<{ token_hash: string; type: string }>;
 }) {
+    // Attendi la risoluzione della Promise
+    const params = await searchParams;
+    const tokenHash = params.token_hash;
+    const type = params.type;
 
-  const tokenHash = searchParams.token_hash;
-  const type = searchParams.type;
-
-  if (!tokenHash || type !== 'recovery') {
+    if (!tokenHash || type !== 'recovery') {
         return (
             <div className="flex min-h-screen items-center justify-center">
                 <div className="text-center">
@@ -18,11 +19,11 @@ export default function setNewPassword({
                 </div>
             </div>
         );
-  }
+    }
 
-  return (
-    <TemplateDiAccesso>
-      <SetNewPasswordForm tokenHash={tokenHash} />
-    </TemplateDiAccesso>
-  )
+    return (
+        <TemplateDiAccesso>
+            <SetNewPasswordForm tokenHash={tokenHash} />
+        </TemplateDiAccesso>
+    );
 }
