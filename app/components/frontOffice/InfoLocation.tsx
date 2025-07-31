@@ -5,7 +5,7 @@ import { MapPin, Phone, Clock } from "lucide-react"
 
 export default function InfoLocation() {
   return (
-    <section className="w-full py-16 bg-oro font-title" id="contatti">
+    <section className="w-full py-16 bg-marrone-scuro/70 font-title" id="contatti">
       <div className="max-w-7xl mx-auto px-6">
         {/* Titolo principale */}
         <h2 className="text-4xl md:text-5xl font-bold text-crema text-center mb-16">Dove trovarci</h2>

@@ -3,7 +3,7 @@ import Link from "next/link"
 
 export default function Footer() {
   return (
-    <footer className="bg-marrone-principale text-crema font-title z-[500] bottom-0">
+    <footer className="bg-grigio text-crema font-title z-[500] bottom-0">
       <div className="container mx-auto px-4 py-12">
         <div className="grid md:grid-cols-2 gap-8">
           <div>
@@ -32,7 +32,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-marrone-scuro mt-8 pt-8 text-center flex flex-col items-center mx-auto">
+        <div className="border-t border-crema mt-8 pt-8 text-center flex flex-col items-center mx-auto">
            <p>P.IVA: 0123456789</p>
           <p>&copy; {new Date().getFullYear()} Naturalmente Senza. Tutti i diritti riservati.</p>
         </div>

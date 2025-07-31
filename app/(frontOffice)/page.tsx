@@ -10,7 +10,7 @@ import InfoLocation from "@/app/components/frontOffice/InfoLocation";
 import BuoniCeliaci from "@/app/components/frontOffice/BuoniCeliaci";
 import PercheSceglierci from "@/app/components/frontOffice/PercheSceglierci";
 import TopProduct from "@/app/components/frontOffice/TopProduct";
-
+import  InfiniteSliderLogos  from "@/app/components/frontOffice/infinite-slider";
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
@@ -32,8 +32,9 @@ export default function Home() {
         <div id="smooth-content">   
           <Hero />
           <NaturalmenteSenzaTypewriter />
-          <PercheSceglierci />
           <TopProduct />
+          <PercheSceglierci />
+          <InfiniteSliderLogos />
           <BuoniCeliaci />
           <InfoLocation />
           <Footer />

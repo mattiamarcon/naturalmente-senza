@@ -53,9 +53,9 @@ export default function Hero() {
         className="z-50 flex flex-col justify-center items-center"
       >
         <p className="font-medium text-4xl md:text-7xl text-center bg-clip-text text-crema py-4  ">
-          <em> Scopri la nostra selezione di prodotti </em> 
+          <em> Scopri i nostri marchi </em> 
         </p>
-        <button className="py-4 px-6 backdrop-blur-sm font-semibold text-crema text-3xl md:text-5xl bg-marrone-principale/70 hover:bg-marrone-principale/80 rounded-xl  text-shadow-lg/5 border-2 border-crema cursor-pointer " onClick={()=>{router.push("/prodotti")}}>
+        <button className="py-2 px-3 md:py-3 md:px-4 backdrop-blur-sm font-semibold text-crema text-3xl md:text-5xl bg-marrone-principale/70 hover:bg-marrone-principale/80 rounded-xl  text-shadow-lg/5 border-2 border-crema cursor-pointer " onClick={()=>{router.push("/prodotti")}}>
           <span><em>Scoprili ora</em></span>
         </button>
       </motion.div>

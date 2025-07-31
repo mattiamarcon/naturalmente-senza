@@ -119,12 +119,12 @@ export default function NaturalmenteSenzaTypewriter() {
   }, [])
 
   return (
-    <section className="w-full py-20 bg-marrone-principale/70 flex flex-col md:flex-row justify-center items-center">
+    <section className="w-full py-20 bg-crema flex flex-col md:flex-row justify-center items-center">
       <div className="max-w-4xl mx-auto px-6 text-center">
-        <h2 className="text-3xl md:text-6xl font-bold text-white leading-tight font-title ">
+        <h2 className="text-3xl md:text-6xl font-bold text-marrone-scuro/70 leading-tight font-title ">
           Trova tutto ciò che ami
         </h2>
-        <h2 className="text-3xl md:text-6xl font-bold text-white leading-tight font-title ">naturalmente senza... </h2>
+        <h2 className="text-3xl md:text-6xl font-bold text-marrone-scuro/70 leading-tight font-title ">naturalmente senza... </h2>
         <h2 className="text-4xl md:text-6xl font-bold text-marrone-principale leading-tight font-title ">
           <span className="relative">
             <span ref={typewriterRef} className="text-marrone-scuro font-extrabold">

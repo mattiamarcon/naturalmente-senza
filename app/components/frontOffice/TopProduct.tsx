@@ -60,6 +60,7 @@ const sampleProducts: Product[] = [
   },
 ]
 
+import CarouselDemo from './caroselloProdotti'
 
 
 export default function TopProduct() {
@@ -71,17 +72,11 @@ export default function TopProduct() {
   }
 
   return (
-    <div className='bg-oro'>
+    <div className='bg-marrone-scuro/80'>
       <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl md:text-5xl font-title text-crema font-bold text-center mb-8">Prodotti di tendenza</h1>
+      <h1 className="text-4xl md:text-5xl font-title text-crema  font-bold text-center mb-8">Prodotti di tendenza</h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {sampleProducts.map((product) => (
-          <Link key={product.id} href={`/prodotti/${product.id}`}>
-             <ProductCard key={product.id} product={product} onClick={handleProductClick} />
-          </Link>
-        ))}
-      </div>
+      <CarouselDemo />
     </div>
     </div>
   )
