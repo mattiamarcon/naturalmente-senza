@@ -15,7 +15,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import { Button } from "@/components/ui/button"
-import { BarChart3,   Home, LogOut,  Utensils, Users, Store } from "lucide-react"
+import { BarChart3,   Home, LogOut,  Utensils, Users, Store, MemoryStick } from "lucide-react"
 import { createSupabaseClient } from "@/utils/supabase/client"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -31,15 +31,15 @@ const menuItems = [
     url: "/dashboard",
     icon: Home,
   },
-  // {
-  //   title: "Orari",
-  //   url: "/admin/orari",
-  //   icon: Clock,
-  // },
   {
     title: "Prodotti",
     url: "/dashboard/prodotti",
     icon: Utensils,
+  },
+    {
+    title: "Marchi",
+    url: "/dashboard/marchi",
+    icon: MemoryStick,
   },
   {
     title: "Statistiche",

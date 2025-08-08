@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display } from "next/font/google";
 import "./globals.css";
+import QueryProvider from "@/app/queryProvider"
 
 
 const playfairDisplay=Playfair_Display({
@@ -26,7 +27,9 @@ export default function RootLayout({
       <body
         className={`${playfairDisplay.className} antialiased`}
       >
+      <QueryProvider>
         {children}
+      </QueryProvider>
       </body>
     </html>
   );

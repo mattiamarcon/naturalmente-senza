@@ -123,3 +123,19 @@ export async function setNewPassword(currentState: actionState, formData: FormDa
     
     return { message: "Password aggiornata correttamente" };
 }
+
+export async function getProducts() {
+    
+    const supabase = await createSupabaseServer()
+    
+    
+    let { data: prodotti, error } = await supabase
+    .from('prodotti')
+    .select('*')
+
+    console.log(error)
+    console.log(prodotti)
+
+    return prodotti
+          
+}

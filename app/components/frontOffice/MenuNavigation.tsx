@@ -63,7 +63,6 @@ function MenuNavigation(status:{status:boolean}) {
 
   return (
     <div ref={menu} className='py-3 font-semibold px-5 flex h-fit gap-3 bg-beige text-marrone-scuro flex-col text-center text-2xl md:text-4xl absolute top-16 md:top-20 right-16 md:right-20 rounded-xl font-title'>
-        <Link href={"/prodotti"} className='menuElement hover:underline'>Prodotti</Link>
         {/* <Link id='contattiLink' href={"#contatti"} className='menuElement hover:underline' onClick={(e:React.MouseEvent<HTMLAnchorElement>)=>toContatti(e)} >Contatti</Link> */}
         {logged && <Link href={"/dashboard"} className='menuElement hover:underline'>Dashboard</Link>}
         {logged?<button className='menuElement hover:underline cursor-pointer' onClick={signOut}>logout</button> :<Link href={"/login"} className='menuElement hover:underline'>Log in</Link>}

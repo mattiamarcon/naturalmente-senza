@@ -140,7 +140,7 @@ const columns: ColumnDef<Utenti>[] = [
   },
 ]
 
-export default function DataTableDemo() {
+export default function DataTable() {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
