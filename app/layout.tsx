@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Playfair_Display } from "next/font/google";
 import "./globals.css";
 import QueryProvider from "@/app/queryProvider"
+import { Toaster } from "@/components/ui/sonner"
 
 
 const playfairDisplay=Playfair_Display({
@@ -29,6 +30,7 @@ export default function RootLayout({
       >
       <QueryProvider>
         {children}
+        <Toaster richColors position="bottom-right" />
       </QueryProvider>
       </body>
     </html>

@@ -1,7 +1,6 @@
 "use client"
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Clock  } from "lucide-react"
 import { useRouter } from "next/navigation"
 
 export default function AdminDashboard() {
