@@ -1,3 +1,4 @@
+import Footer from "../components/frontOffice/Footer";
 import Navbar from "../components/frontOffice/Navbar";
 
 export default function frontOfficeLayout({
@@ -9,6 +10,7 @@ export default function frontOfficeLayout({
     <>
         <Navbar />
         {children}
+        <Footer />
     </>
   );
 }

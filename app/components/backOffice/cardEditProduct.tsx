@@ -20,13 +20,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-
-interface Product{
-    id:number,
-    nome:string,
-    urlImage:string,
-    descrizione:string,
-}
+import { Product } from "@/utils/types"
 
 export default function CardEditProduct({product,refetchData}:{product:Product,refetchData:VoidFunction}){
 
@@ -73,7 +67,7 @@ export default function CardEditProduct({product,refetchData}:{product:Product,r
 
     const changeStatus=async(id:number,value:string)=>{
       if(value==="Attivo"){
-        const {error:errorUpdate} = await dbClient.from("products").update({"descrizione":value}).eq("id",id)
+        const {error:errorUpdate} = await dbClient.from("products").update({"attivo":true}).eq("id",id)
         refetchData()
         if (errorUpdate) {
             toast.error("Qualcosa è andato storto, aggiorna la pagina e riprova!");
@@ -81,7 +75,7 @@ export default function CardEditProduct({product,refetchData}:{product:Product,r
             toast.success("Il prodotto è ora visibile.");
         }
       }else{
-        const {error:errorUpdate} = await dbClient.from("products").update({"descrizione":value}).eq("id",id)
+        const {error:errorUpdate} = await dbClient.from("products").update({"attivo":false}).eq("id",id)
         refetchData()
         if (errorUpdate) {
             toast.error("Qualcosa è andato storto, aggiorna la pagina e riprova!");
@@ -101,18 +95,17 @@ export default function CardEditProduct({product,refetchData}:{product:Product,r
       const file=e.target.files?.[0]
 
       if(file){
-        console.log(file)
-        console.log(id)
         //aggiungiNuovoFileAlBucket
-        const {error:inputError} = await dbClient.storage.from("images").upload(`${file.name}`,file)
+        const {error:inputError} = await dbClient.storage.from("images").upload(`productImages/${file.name}`,file)
         if(inputError)console.log(inputError)
         //rimuoviVecchioFileDalBucket
-        const fileToDeletePath=product.urlImage.split('/storage/v1/object/public/images')[1];     
+        const fileToDeletePath=product.urlImage.split('/storage/v1/object/public/images/')[1];   
+        console.log(fileToDeletePath)
         const {error:deleteError} = await dbClient.storage.from("images").remove([fileToDeletePath])
         if(deleteError)console.log(deleteError)
         //aggiornaTabellaConNuovoUrlFile
         //ottieniUrlNuovoFile
-        const {data:urlFile} = dbClient.storage.from("images").getPublicUrl(`${file.name}`)
+        const {data:urlFile} = dbClient.storage.from("images").getPublicUrl(`productImages/${file.name}`)
         const {error:errorUpdateTable} = await dbClient.from("products").update({
             "urlImage":urlFile.publicUrl,
         }).eq("id",id)
@@ -124,39 +117,47 @@ export default function CardEditProduct({product,refetchData}:{product:Product,r
         
     }
 
+    //nel cambio immagine assicuarsi che il path sia corretto
 
     const deleteProduct=async(id:number)=>{
-      const {error}=await dbClient.from("products").delete().eq("id",id)
-      if(error)
-        console.log(error)
+      const {data:imageUrl} = await dbClient.from("products").select("urlImage").eq("id",id) 
+      
+      if(imageUrl){
+        console.log(imageUrl[0].urlImage)
+
+       const {data,error} = await dbClient.storage.from("images").remove([`/productImages/${imageUrl[0].urlImage}`])
+       console.log(data,error)
+      }
+        
+      const {error:errorDeleteRow}=await dbClient.from("products").delete().eq("id",id)
+      if(errorDeleteRow)
+        console.log(errorDeleteRow)
        refetchData()
        toast.success("Prodotto eliminato con successo!")
     }
 
-
-
     return(
-        <Card className="p-5">
+        <Card className="p-5 ">
             <CardHeader>
               <div className="flex items-start justify-between">
                 <div>
-                  <CardTitle className="flex items-center gap-2">
+                  <CardTitle className="flex items-center gap-2 text-2xl md:text-4xl">
                     {product.nome}         
                   </CardTitle>
                 </div>
               </div>
             </CardHeader>
             <CardContent>
-              <div className="grid md:grid-cols-4 gap-6">
+              <div className="grid md:grid-cols-4 gap-6 ">
                 <div className="space-y-4">
-                  <div className="aspect-square bg-muted rounded-lg flex items-center justify-center overflow-hidden">
+                  <div className="aspect-square bg-muted rounded-lg flex items-center justify-center overflow-hidden " >
                     <img
                       src={imageToShow}
                       alt={product.nome}
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <Button variant="outline" size="lg" className="w-full bg-transparent cursor-pointer" onClick={()=>changeImageTrigger()}>
+                  <Button variant="outline" size="lg" className=" bg-transparent cursor-pointer" onClick={()=>changeImageTrigger()}>
                     <ImageIcon className="h-4 w-4 mr-2" />
                     Cambia Immagine
                   </Button>
@@ -165,47 +166,40 @@ export default function CardEditProduct({product,refetchData}:{product:Product,r
 
                 <div className="md:col-span-3 space-y-4">
                   <div className="grid md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
+                    <div className="space-y-2 ">
                       <Label htmlFor={`name-${product.id}`}>Nome Prodotto</Label>
                       <Input id={`name-${product.id}`} defaultValue={product.nome} onChange={(e)=>changeNome(product.id, e.target.value)} />
                     </div>
-                    <div className="space-y-2">
+                    <div className="space-y-2 ">
                       <Label htmlFor={`status-${product.id}`}>Stato</Label>
-                      <select className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background" onChange={(e)=>changeStatus(product.id, e.target.value)}>
+                      <select className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background" onChange={(e)=>changeStatus(product.id, e.target.value)} defaultValue={product.attivo ? "Attivo" : "Inattivo" }>
                         <option>Attivo</option>
                         <option>Inattivo</option>
                       </select>
                     </div>
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-2 ">
                     <Label htmlFor={`description-${product.id}`}>Descrizione</Label>
                     <Textarea id={`description-${product.id}`} defaultValue={product.descrizione} rows={3} onChange={(e)=>changeDescrizione(product.id, e.target.value)} />
                   </div>
-
-                  <div className="flex gap-2 pt-2">
-                    <Button size="lg" className="cursor-pointer bg-marrone-scuro hover:bg-marrone-principale">Salva Modifiche</Button>
-                    <Button size="lg" variant="outline" className="cursor-pointer">
-                      Annulla
-                    </Button>
-                    <AlertDialog>
-                        <AlertDialogTrigger asChild>
-                            <Button size="lg" variant="destructive" className="cursor-pointer hover:bg-red-700">Elimina</Button>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                            <AlertDialogHeader>
-                            <AlertDialogTitle className="md:text-2xl">Questa azione non è annullabile!</AlertDialogTitle>
-                            <AlertDialogDescription className="md:text-lg">
-                                Stai per iliminare il prodotto {product.nome}
-                            </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                            <AlertDialogCancel className="cursor-pointer">Annulla</AlertDialogCancel>
-                            <AlertDialogAction className="cursor-pointer hover:bg-red-700 bg-red-600" onClick={()=>deleteProduct(product.id)}>Elimina</AlertDialogAction>
-                            </AlertDialogFooter>
-                        </AlertDialogContent>
-                        </AlertDialog>
-                  </div>
+                  <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                          <Button size="lg" variant="destructive" className="cursor-pointer hover:bg-red-700">Elimina</Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                          <AlertDialogHeader>
+                          <AlertDialogTitle className="md:text-2xl">Questa azione non è annullabile!</AlertDialogTitle>
+                          <AlertDialogDescription className="md:text-lg">
+                              Stai per eliminare il prodotto: {product.nome}
+                          </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                          <AlertDialogCancel className="cursor-pointer">Annulla</AlertDialogCancel>
+                          <AlertDialogAction className="cursor-pointer hover:bg-red-700 bg-red-600" onClick={()=>deleteProduct(product.id)}>Elimina</AlertDialogAction>
+                          </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                 </div>
               </div>
             </CardContent>

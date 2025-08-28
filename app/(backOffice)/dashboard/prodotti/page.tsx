@@ -5,11 +5,13 @@ import {useQuery } from "@tanstack/react-query"
 import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
 import CardEditProduct from "@/app/components/backOffice/cardEditProduct"
+import AddProductCard from "@/app/components/backOffice/AddProductCard"
 
 export default function GestioneProdotti() { 
 
 
   const [refetchData,setRefetchData]=useState(false)
+  const [addedProduct,setAddedProduct]=useState(false)
 
   const { isPending, error, data,refetch } = useQuery({
       queryKey: ['productData'],
@@ -19,6 +21,14 @@ export default function GestioneProdotti() {
     useEffect(()=>{
       refetch()
     },[refetchData])
+
+    function addProduct(){
+      setAddedProduct(true)
+    }
+
+    function closeDialog(){
+      setAddedProduct(false)
+    }
 
     if (isPending){
         return(
@@ -36,17 +46,18 @@ export default function GestioneProdotti() {
         )
     }
 
-    if (error) return 'An error has occurred: ' + error.message
+    if (error) return 'Si è verificato un errore imprevisto, riaggiorna la pagina!'
 
     return (
         <>
-        <Button className="bg-marrone-scuro hover:bg-marrone-principale w-12 h-12 md:w-16 md:h-16 rounded-full fixed bottom-6 right-6 z-50 flex justify-center items-center cursor-pointer" onClick={()=>console.log("add product")}>
+        <Button className="bg-marrone-scuro hover:bg-marrone-principale w-12 h-12 md:w-16 md:h-16 rounded-full fixed bottom-6 right-6 z-50 flex justify-center items-center cursor-pointer" onClick={addProduct}>
             <span className="text-white text-3xl md:text-4xl">+</span>
         </Button>
         <div className="grid gap-6">
-        {data && data.map((product) => (
-          <CardEditProduct key={product.id} product={product} refetchData={()=>setRefetchData(!refetchData)} />
-        ))}
+          {addedProduct && <AddProductCard closeDialog={closeDialog} refetchData={()=>setRefetchData(!refetchData)} />}
+          {data && data.map((product) => (
+            <CardEditProduct key={product.id} product={product} refetchData={()=>setRefetchData(!refetchData)} />
+          ))}
       </div>
       </>
     )

@@ -24,8 +24,6 @@ export default function Home() {
     });
   })
 
- 
-
   return (
     <>
       <div id="smooth-wrapper">

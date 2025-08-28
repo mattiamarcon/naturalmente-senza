@@ -1,19 +1,12 @@
 "use client"
-import Image from "next/image"
-import { Card, CardContent } from "@/components/ui/card"
 
-export interface ProductBadge {
-  id: string
-  label: string
-  icon?: string
-}
+import { Card, CardContent } from "@/components/ui/card"
 
 export interface Product {
   id: string
-  title: string
+  nome: string
   urlImage: string
-  badges: ProductBadge[]
-  description?: string
+  descrizione?: string
 }
 
 interface ProductCardProps {
@@ -22,7 +15,7 @@ interface ProductCardProps {
 }
 
 function ProductCard({ product, onClick }: ProductCardProps) {
-  const { title, urlImage, badges } = product
+  const { nome, urlImage } = product
 
   return (
     <Card
@@ -31,9 +24,9 @@ function ProductCard({ product, onClick }: ProductCardProps) {
     >
       <CardContent className="p-0 flex flex-col h-full">
         <div className="relative aspect-square overflow-hidden rounded-t-lg flex-shrink-0">
-          <Image
-            src={urlImage || "/placeholder.svg"}
-            alt={title}
+          <img
+            src={urlImage}
+            alt={nome}
             width={400}
             height={400}
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
@@ -43,30 +36,15 @@ function ProductCard({ product, onClick }: ProductCardProps) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </div>
 
-        <div className="p-6 space-y-4 flex flex-col flex-grow">
+        <div className="p-1 md:p-3 space-y-4 flex flex-col flex-grow">
           {/* Titolo con altezza fissa */}
           <div className="min-h-[4rem] flex items-center justify-center">
-            <h3 className="font-bold text-xl md:text-2xl text-marrone-scuro group-hover:text-marrone-principale transition-colors duration-300 text-center leading-tight">
-              {title}
+            <h3 className="font-bold text-3xl md:text-4xl text-marrone-scuro group-hover:text-marrone-principale transition-colors duration-300 text-center leading-tight">
+              {nome}
             </h3>
           </div>
 
-          {/* Container per i badges con altezza minima fissa */}
-          <div className="min-h-[3rem] flex items-start justify-center flex-grow">
-            {badges.length > 0 && (
-              <div className="flex flex-wrap gap-2 justify-center">
-                {badges.map((badge) => (
-                  <div
-                    key={badge.id}
-                    className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-marrone-principale/10 to-marrone-scuro/10 text-marrone-scuro border border-marrone-principale/20 hover:border-marrone-principale/40 transition-all duration-300"
-                  >
-                    {badge.icon && <span className="mr-1">{badge.icon}</span>}
-                    {badge.label}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+          
         </div>
       </CardContent>
     </Card>

@@ -3,6 +3,7 @@
 import { createSupabaseClient } from "@/utils/supabase/client"
 import { createSupabaseServer } from "@/utils/supabase/server"
 import { redirect } from "next/navigation";
+import { ProductWithoutId } from "@/utils/types";
 
 const dbClient=createSupabaseClient();
 
@@ -129,4 +130,54 @@ export async function getProducts() {
 
     if(prodotti)
         return prodotti    
+}
+
+export async function getActiveProducts() {    
+    const { data: prodotti,error} = await dbClient.from('products').select('*').eq("attivo",true)
+
+    console.log(error)
+
+    if(prodotti)
+        return prodotti    
+}
+
+export async function getProduct(id:number) {    
+    const { data: prodotto,error} = await dbClient.from('products').select('*').eq("id",id)
+
+    if(error)
+        console.log(error)
+
+    if(prodotto)
+        return prodotto   
+}
+
+export async function addProduct(product:ProductWithoutId){
+    const dbServer = await createSupabaseServer();
+
+    const {error} = await dbServer.from('products').insert(product)
+    
+    if(error)
+        console.log(error)
+}
+
+export async function getBrands() {
+  const { data, error } = await dbClient.from("marchi").select("*").order("id", { ascending: false })
+
+  if (error) {
+    console.error("Error fetching brands:", error)
+    throw error
+  }
+
+  return data
+}
+
+export async function addBrand(brand: { nome: string; urlImage: string }) {
+  const { data, error } = await dbClient.from("marchi").insert([brand])
+
+  if (error) {
+    console.error("Error adding brand:", error)
+    throw error
+  }
+
+  return data
 }
