@@ -11,7 +11,7 @@ export interface Product {
 
 interface ProductCardProps {
   product: Product
-  onClick?: (product: Product) => void
+  onClick: (product: Product) => void
 }
 
 function ProductCard({ product, onClick }: ProductCardProps) {
@@ -20,7 +20,7 @@ function ProductCard({ product, onClick }: ProductCardProps) {
   return (
     <Card
       className="group cursor-pointer hover:shadow-xl transition-all duration-500 font-title w-full mx-auto border-0 shadow-md hover:-translate-y-1 h-full flex flex-col"
-      onClick={() => onClick?.(product)}
+      onClick={() => onClick(product)}
     >
       <CardContent className="p-0 flex flex-col h-full">
         <div className="relative aspect-square overflow-hidden rounded-t-lg flex-shrink-0">

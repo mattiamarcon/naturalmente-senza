@@ -41,7 +41,7 @@ export default function CardEditBrand({ brand, refetchData }: { brand: Brand; re
     }
 
     timeOutRef.current = setTimeout(async () => {
-      const { error: errorUpdate } = await dbClient.from("brands").update({ nome: value }).eq("id", id)
+      const { error: errorUpdate } = await dbClient.from("marchi").update({ nome: value }).eq("id", id)
       refetchData()
       if (errorUpdate) {
         toast.error("Qualcosa è andato storto, aggiorna la pagina e riprova!")
@@ -69,7 +69,7 @@ export default function CardEditBrand({ brand, refetchData }: { brand: Brand; re
 
       const { data: urlFile } = dbClient.storage.from("images").getPublicUrl(`brandImages/${file.name}`)
       const { error: errorUpdateTable } = await dbClient
-        .from("brands")
+        .from("marchi")
         .update({
           urlImage: urlFile.publicUrl,
         })
@@ -82,7 +82,7 @@ export default function CardEditBrand({ brand, refetchData }: { brand: Brand; re
   }
 
   const deleteBrand = async (id: number) => {
-    const { data: imageUrl } = await dbClient.from("brands").select("urlImage").eq("id", id)
+    const { data: imageUrl } = await dbClient.from("marchi").select("urlImage").eq("id", id)
 
     if (imageUrl) {
       console.log(imageUrl[0].urlImage)
@@ -91,7 +91,7 @@ export default function CardEditBrand({ brand, refetchData }: { brand: Brand; re
       console.log(data, error)
     }
 
-    const { error: errorDeleteRow } = await dbClient.from("brands").delete().eq("id", id)
+    const { error: errorDeleteRow } = await dbClient.from("marchi").delete().eq("id", id)
     if (errorDeleteRow) console.log(errorDeleteRow)
     refetchData()
     toast.success("Marchio eliminato con successo!")
@@ -109,9 +109,13 @@ export default function CardEditBrand({ brand, refetchData }: { brand: Brand; re
       <CardContent>
         <div className="grid md:grid-cols-3 gap-6 ">
           <div className="space-y-4">
-            <div className="aspect-square bg-muted rounded-lg flex items-center justify-center overflow-hidden ">
-              <img src={imageToShow || "/placeholder.svg"} alt={brand.nome} className="w-full h-full object-cover" />
-            </div>
+            <div className="aspect-square bg-muted rounded-lg flex items-center justify-center overflow-hidden " >
+                    <img
+                      src={imageToShow}
+                      alt={brand.nome}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
             <Button
               variant="outline"
               size="lg"

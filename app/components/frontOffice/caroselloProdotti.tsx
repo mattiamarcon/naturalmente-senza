@@ -17,6 +17,7 @@ export default function CaroselloProdotti() {
   })
 
   const handleProductClick = (product: Product) => {
+    console.log(product.id,product.nome)
     router.push(`/prodotti/${product.id}`)
   }
 

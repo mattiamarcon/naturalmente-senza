@@ -1,9 +1,17 @@
+"use client"
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import { useQuery } from '@tanstack/react-query';
+import { getBrands } from '@/app/action';
 
 export default function InfiniteSliderLogos() {
 
-    useGSAP(()=>{
+    const { error, data } = useQuery({
+        queryKey: ["brandData"],
+        queryFn: () => getBrands(),
+      })
+
+    useGSAP(()=>{ 
         const images=document.querySelectorAll(".imgToAnimate")
         if(window.innerWidth>768){
             gsap.fromTo(
@@ -30,123 +38,27 @@ export default function InfiniteSliderLogos() {
                 }
             )
         }
-    })
+    },[data])
 
-  return (
-    <section className='w-full bg-marrone-scuro/70 py-5'>
-        <h1 className='text-5xl md:text-7xl text-center text-crema font-semibold underline mb-10 decoration-3 underline-offset-4'>
-            I nostri marchi
-        </h1>
-        <div className='flex flex-row overflow-hidden max-w-7xl  mx-auto'>
-            <img
-                src='/farabellaLogo.png'
-                alt='farabellaLogo'
-                className='aspect-square h-[100px] w-[140px] rounded-[4px] grayscale imgToAnimate mx-5'
-            />
-            <img
-                src='/liberarireLogo.webp'
-                alt='liberaireLogo'
-                className='aspect-square h-[100px] w-[140px] rounded-[4px] grayscale imgToAnimate mx-5'
-            />
-            <img
-                src='/logoProbios.png'
-                alt='logoProbios'
-                className='aspect-square h-[100px] w-[140px] rounded-[4px] grayscale imgToAnimate mx-5'
-            />
-            <img
-                src='/lurisiaLogo.png'
-                alt='lurisiaLogo'
-                className='aspect-squareh h-[100px] w-[140px] rounded-[4px] grayscale imgToAnimate mx-5'
-            />
-            <img
-                src='/maramarconLogo.png'
-                alt='maramarcoLogo'
-                className='aspect-square h-[100px] w-[140px] rounded-[4px] grayscale imgToAnimate mx-5'
-            />
-            <img
-                src='/marioLogo.jpeg'
-                alt='marioLogo'
-                className='aspect-square h-[100px] w-[140px] rounded-[4px] grayscale imgToAnimate mx-5'
-            />
-            <img
-                src='/scharLogo.jpg'
-                alt='scharLogo'
-                className='aspect-square h-[100px] w-[140px] rounded-[4px] grayscale imgToAnimate mx-5'
-            />
-            <img
-                src='/farabellaLogo.png'
-                alt='farabellaLogo'
-                className='aspect-square h-[100px] w-[140px] rounded-[4px] grayscale imgToAnimate mx-5'
-            />
-            <img
-                src='/liberarireLogo.webp'
-                alt='liberaireLogo'
-                className='aspect-square h-[100px] w-[140px] rounded-[4px] grayscale imgToAnimate mx-5'
-            />
-            <img
-                src='/logoProbios.png'
-                alt='logoProbios'
-                className='aspect-square h-[100px] w-[140px] rounded-[4px] grayscale imgToAnimate mx-5'
-            />
-            <img
-                src='/lurisiaLogo.png'
-                alt='lurisiaLogo'
-                className='aspect-squareh h-[100px] w-[140px] rounded-[4px] grayscale imgToAnimate mx-5'
-            />
-            <img
-                src='/maramarconLogo.png'
-                alt='maramarcoLogo'
-                className='aspect-square h-[100px] w-[140px] rounded-[4px] grayscale imgToAnimate mx-5' 
-            />
-            <img
-                src='/marioLogo.jpeg'
-                alt='marioLogo'
-                className='aspect-square h-[100px] w-[140px] rounded-[4px] grayscale imgToAnimate mx-5'
-            />
-            <img
-                src='/scharLogo.jpg'
-                alt='scharLogo'
-                className='aspect-square h-[100px] w-[140px] rounded-[4px] grayscale imgToAnimate mx-5'
-            />
-        </div>
-         {/* <InfiniteSlider speedOnHover={20} gap={36} className='md:w-2/3 mx-auto '>
-            <img
-                src='/farabellaLogo.png'
-                alt='farabellaLogo'
-                className='aspect-square h-[100px] w-[140px] rounded-[4px] grayscale'
-            />
-            <img
-                src='/liberarireLogo.webp'
-                alt='liberaireLogo'
-                className='aspect-square h-[100px] w-[140px] rounded-[4px] grayscale'
-            />
-            <img
-                src='/logoProbios.png'
-                alt='logoProbios'
-                className='aspect-square h-[100px] w-[140px] rounded-[4px] grayscale'
-            />
-            <img
-                src='/lurisiaLogo.png'
-                alt='lurisiaLogo'
-                className='aspect-squareh h-[100px] w-[140px] rounded-[4px] grayscale'
-            />
-            <img
-                src='/maramarconLogo.png'
-                alt='maramarcoLogo'
-                className='aspect-square h-[100px] w-[140px] rounded-[4px] grayscale'
-            />
-            <img
-                src='/marioLogo.jpeg'
-                alt='marioLogo'
-                className='aspect-square h-[100px] w-[140px] rounded-[4px] grayscale'
-            />
-            <img
-                src='/scharLogo.jpg'
-                alt='scharLogo'
-                className='aspect-square h-[100px] w-[140px] rounded-[4px] grayscale'
-            />
-            </InfiniteSlider> */}
-    </section>
-   
-  );
+    if(error)
+        return("<p>Qualcosa è andato storto...</p>")
+
+    if(data){
+
+        console.log(data)
+          return (
+            <section className='w-full bg-marrone-scuro/70 py-5' id='marchi'>
+                <h1 className='text-5xl md:text-7xl text-center text-crema font-semibold underline mb-10 decoration-3 underline-offset-4'>
+                    I nostri marchi
+                </h1>
+                <div className='flex flex-row overflow-hidden max-w-7xl  mx-auto'>
+                    {data.map((img)=>(
+                        <img src={img.urlImage} alt={img.nome} className='aspect-square h-[100px] w-[140px] rounded-[4px] grayscale imgToAnimate mx-5' key={img.id} />
+                    ))}          
+                </div>
+            </section>
+        );
+    }
+
+
 }

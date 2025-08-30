@@ -141,7 +141,8 @@ export async function getActiveProducts() {
         return prodotti    
 }
 
-export async function getProduct(id:number) {    
+export async function getProduct(id:number) {  
+    console.log(id)  
     const { data: prodotto,error} = await dbClient.from('products').select('*').eq("id",id)
 
     if(error)
@@ -161,6 +162,8 @@ export async function addProduct(product:ProductWithoutId){
 }
 
 export async function getBrands() {
+    
+
   const { data, error } = await dbClient.from("marchi").select("*").order("id", { ascending: false })
 
   if (error) {
@@ -172,7 +175,8 @@ export async function getBrands() {
 }
 
 export async function addBrand(brand: { nome: string; urlImage: string }) {
-  const { data, error } = await dbClient.from("marchi").insert([brand])
+    const dbServer = await createSupabaseServer();
+  const { data, error } = await dbServer.from("marchi").insert([brand])
 
   if (error) {
     console.error("Error adding brand:", error)

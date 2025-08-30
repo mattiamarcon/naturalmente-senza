@@ -13,10 +13,8 @@ export default  function ProductPage({
 
   const { id } = use(params)
 
-  console.log(id)
-
   const { isPending, error, data } = useQuery({
-        queryKey: ['getSpecificProduct'],
+        queryKey: ['getSpecificProduct',id],
         queryFn: () => getProduct(id)
     })
 
@@ -67,7 +65,7 @@ export default  function ProductPage({
           <div className="flex flex-col justify-center space-y-6">
             <h1 className="text-3xl lg:text-4xl font-bold text-marrone-scuro">{nome}</h1>
 
-            <p className="text-lg text-muted-foreground leading-relaxed">
+            <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-wrap">
               {descrizione}
             </p>
           </div>
