@@ -98,7 +98,7 @@ export default function CardEditBrand({ brand, refetchData }: { brand: Brand; re
   }
 
   return (
-    <Card className="p-5 ">
+    <Card className="md:p-5 ">
       <CardHeader>
         <div className="flex items-start justify-between">
           <div>
@@ -107,7 +107,7 @@ export default function CardEditBrand({ brand, refetchData }: { brand: Brand; re
         </div>
       </CardHeader>
       <CardContent>
-        <div className="grid md:grid-cols-3 gap-6 ">
+        <div className="grid md:grid-cols-3 gap-y-6 ">
           <div className="space-y-4">
             <div className="aspect-square bg-muted rounded-lg flex items-center justify-center overflow-hidden " >
                     <img
