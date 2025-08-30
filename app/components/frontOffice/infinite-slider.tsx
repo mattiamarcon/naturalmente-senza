@@ -30,7 +30,7 @@ export default function InfiniteSliderLogos() {
   if (data) {
     return (
       <section className="w-full bg-marrone-scuro/70 py-5" id="marchi">
-        <h1 className="text-5xl md:text-7xl text-center text-amber-100 font-semibold underline mb-10 decoration-3 underline-offset-4">
+        <h1 className="text-5xl md:text-7xl text-center text-crema font-semibold underline mb-10 decoration-3 underline-offset-4">
           I nostri marchi
         </h1>
         <div className="overflow-hidden max-w-7xl mx-auto">
