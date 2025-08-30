@@ -137,7 +137,7 @@ export default function CardEditProduct({product,refetchData}:{product:Product,r
     }
 
     return(
-        <Card className="p-5 ">
+        <Card className="px-0 py-2 md:p-5 ">
             <CardHeader>
               <div className="flex items-start justify-between">
                 <div>
@@ -181,7 +181,7 @@ export default function CardEditProduct({product,refetchData}:{product:Product,r
 
                   <div className="space-y-2 ">
                     <Label htmlFor={`description-${product.id}`}>Descrizione</Label>
-                    <Textarea id={`description-${product.id}`} defaultValue={product.descrizione} rows={3} onChange={(e)=>changeDescrizione(product.id, e.target.value)} />
+                    <Textarea id={`description-${product.id}`} defaultValue={product.descrizione} rows={5} onChange={(e)=>changeDescrizione(product.id, e.target.value)} />
                   </div>
                   <AlertDialog>
                       <AlertDialogTrigger asChild>
