@@ -53,9 +53,6 @@ export async function signup(currentState:actionState,formData:FormData){
     const {data,error}=await dbServer.auth.signUp({
         email,
         password,
-        options:{
-            emailRedirectTo:`${process.env.NEXT_PUBLIC_SITE_URL}/login`
-        }
     })
 
     if(error)
