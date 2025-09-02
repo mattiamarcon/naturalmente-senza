@@ -54,7 +54,7 @@ export async function signup(currentState:actionState,formData:FormData){
         email,
         password,
         options:{
-            emailRedirectTo:`${window.location.href}/login`
+            emailRedirectTo:`${process.env.NEXT_PUBLIC_SITE_URL}/login`
         }
     })
 
