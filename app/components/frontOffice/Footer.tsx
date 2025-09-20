@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className="bg-grigio text-crema font-title z-[500] bottom-0">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-3 gap-8">
           <div>
             <h3 className="text-3xl font-bold  mb-4">Naturalmente Senza</h3>
             <p className=" mb-4">
@@ -30,6 +30,13 @@ export default function Footer() {
               </p>
             </div>
           </div>
+
+          <div className="flex flex-col">
+            <h4 className="font-semibold  mb-4">Azienda</h4>
+            <a href="https://www.iubenda.com/privacy-policy/95937578" className="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe" title="Privacy Policy" target="_blank">Privacy Policy</a>
+            <a href="https://www.iubenda.com/privacy-policy/95937578/cookie-policy" className="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe " title="Cookie Policy" target="_blank">Cookie Policy</a>
+          </div>
+
         </div>
 
         <div className="border-t border-crema mt-8 pt-8 text-center flex flex-col items-center mx-auto">
