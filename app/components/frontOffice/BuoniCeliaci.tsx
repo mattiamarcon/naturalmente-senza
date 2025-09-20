@@ -34,7 +34,7 @@ export default function BuoniCeliaci() {
                     <CreditCard className="h-6 w-6 text-oro" />
                   </div>
                   <h3 className="mb-2 font-semibold text-marrone-scuro">Tutti i Formati</h3>
-                  <p className="text-sm text-marrone-scuro/70">Accettiamo buoni cartacei e digitali di tutte le ASL</p>
+                  <p className="text-sm text-marrone-scuro/70">Accettiamo buoni cartacei e digitali emessi dalla regione Veneto</p>
                 </div>
 
                 <div className="flex flex-col items-center text-center">
