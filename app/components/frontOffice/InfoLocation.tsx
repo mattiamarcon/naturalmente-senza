@@ -44,8 +44,8 @@ export default function InfoLocation() {
                 </div>
                 <div>
                   <p className="text-grigio  text-xl">Lun: 8:30-12:30</p>
-                  <p className="text-grigio  text-xl">Mar-Sab: 8:30-12:30, 15:00-19.00</p>
-                  <p className="text-grigio  text-xl">Dom: Chiuso</p>
+                  <p className="text-grigio  text-xl">Mar-Ven: 8:30-12:30, 15:00-19.00</p>
+                  <p className="text-grigio  text-xl">Sab: 8:30-12:30, 15:00-18.30</p>
                 </div>
               </div>
             </div>
