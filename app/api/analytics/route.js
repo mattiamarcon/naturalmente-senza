@@ -1,16 +1,13 @@
 import { NextResponse } from 'next/server';
 
 export async function GET(req) {
-
   try {
-
     const { searchParams } = new URL(req.url);
     const daysParam = searchParams.get('days') || '30';
     const days = parseInt(daysParam);
 
     const validDays = [1, 7, 30];
     const selectedDays = validDays.includes(days) ? days : 30;
-    
     
     const endAt = Date.now();
     const startAt = endAt - (selectedDays * 24 * 60 * 60 * 1000);
@@ -21,78 +18,89 @@ export async function GET(req) {
       'Accept': 'application/json'
     };
 
-    // Funzione helper per fare le chiamate API
+    // Helper function for API calls
     const fetchUmamiData = async (endpoint) => {
-      const response = await fetch(`${baseUrl}${endpoint}`, { headers });
-      
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.log(`Error fetching ${endpoint}:`, errorText);
+      try {
+        const response = await fetch(`${baseUrl}${endpoint}`, { headers });
+        
+        if (!response.ok) {
+          console.error(`Error fetching ${endpoint}: ${response.status}`);
+          return null;
+        }
+        
+        return await response.json();
+      } catch (err) {
+        console.error(`Fetch error for ${endpoint}:`, err);
         return null;
       }
-      
-      return await response.json();
     };
 
-    // Chiamate parallele per tutti i dati
-    const [
-      statsData,
-      metricsData
-    ] = await Promise.all([
-      // Statistiche generali
+    // Fetch stats and individual metrics
+    const [statsData, countriesRes, osRes, browsersRes, devicesRes] = await Promise.all([
       fetchUmamiData(`/stats?startAt=${startAt}&endAt=${endAt}`),
-      
-      // Metriche dettagliate (singola chiamata che include tutto)
-      fetchUmamiData(`/metrics?startAt=${startAt}&endAt=${endAt}&type=country,os,browser,device,page,referrer`)
+      fetchUmamiData(`/metrics?startAt=${startAt}&endAt=${endAt}&type=country`),
+      fetchUmamiData(`/metrics?startAt=${startAt}&endAt=${endAt}&type=os`),
+      fetchUmamiData(`/metrics?startAt=${startAt}&endAt=${endAt}&type=browser`),
+      fetchUmamiData(`/metrics?startAt=${startAt}&endAt=${endAt}&type=device`)
     ]);
 
-    // Se la chiamata metrics non funziona, proviamo con le chiamate individuali
-    let countriesData, osData, browsersData, devicesData, pagesData, referrersData;
-    
-    if (!metricsData) {
-      console.log('Trying individual metric calls...');
-      [
-        countriesData,
-        osData,
-        browsersData,
-        devicesData,
-        pagesData,
-        referrersData
-      ] = await Promise.all([
-        fetchUmamiData(`/metrics?startAt=${startAt}&endAt=${endAt}&type=country`),
-        fetchUmamiData(`/metrics?startAt=${startAt}&endAt=${endAt}&type=os`),
-        fetchUmamiData(`/metrics?startAt=${startAt}&endAt=${endAt}&type=browser`),
-        fetchUmamiData(`/metrics?startAt=${startAt}&endAt=${endAt}&type=device`),
-        fetchUmamiData(`/metrics?startAt=${startAt}&endAt=${endAt}&type=page`),
-        fetchUmamiData(`/metrics?startAt=${startAt}&endAt=${endAt}&type=referrer`)
-      ]);
-    } else {
-      // Estrai i dati dalla chiamata combinata
-      countriesData = metricsData.filter(item => item.type === 'country');
-      osData = metricsData.filter(item => item.type === 'os');
-      browsersData = metricsData.filter(item => item.type === 'browser');
-      devicesData = metricsData.filter(item => item.type === 'device');
-      pagesData = metricsData.filter(item => item.type === 'page');
-      referrersData = metricsData.filter(item => item.type === 'referrer');
-    }
-
-    // Costruisci la risposta combinata
-    const combinedData = {
-      period: {
-        startAt,
-        endAt,
-        days: 30
-      },
-      stats: statsData,
-      countries: countriesData,
-      operatingSystems: osData,
-      browsers: browsersData,
-      devices: devicesData,
-      pages: pagesData,
-      referrers: referrersData
+    // Parse metrics data - Umami returns { data: Array } structure
+    const parseMetrics = (res) => {
+      if (!res) return [];
+      if (Array.isArray(res)) return res;
+      if (res.data && Array.isArray(res.data)) return res.data;
+      return [];
     };
 
-    console.log('Combined analytics data retrieved successfully');
+    const countries = parseMetrics(countriesRes).map(item => ({
+      x: item.x || 'Unknown',
+      y: item.y || 0,
+      percentage: 0
+    }));
+
+    const operatingSystems = parseMetrics(osRes).map(item => ({
+      x: item.x || 'Unknown',
+      y: item.y || 0,
+      percentage: 0
+    }));
+
+    const browsers = parseMetrics(browsersRes).map(item => ({
+      x: item.x || 'Unknown',
+      y: item.y || 0,
+      percentage: 0
+    }));
+
+    const devices = parseMetrics(devicesRes).map(item => ({
+      x: item.x || 'Unknown',
+      y: item.y || 0,
+      percentage: 0
+    }));
+
+    // Build consistent stats structure
+    const formattedStats = {
+      visits: {
+        value: statsData?.pageviews || statsData?.visits || 0
+      },
+      visitors: {
+        value: statsData?.uniques || statsData?.visitors || 0
+      },
+      totaltime: {
+        value: statsData?.totaltime || 0
+      }
+    };
+
+    // Build response matching component expectations
+    const combinedData = {
+      activeUsers: 0, // This should come from a real-time source if available
+      stats: formattedStats,
+      countries,
+      operatingSystems,
+      browsers,
+      devices,
+      sessionDuration: formattedStats.totaltime.value / (formattedStats.visits.value || 1)
+    };
+
+    console.log('Analytics data retrieved successfully');
     
     return NextResponse.json(combinedData);
 

@@ -99,7 +99,7 @@ export default function CardEditProduct({product,refetchData}:{product:Product,r
         const {error:inputError} = await dbClient.storage.from("images").upload(`productImages/${file.name}`,file)
         if(inputError)console.log(inputError)
         //rimuoviVecchioFileDalBucket
-        const fileToDeletePath=product.urlImage.split('/storage/v1/object/public/images/')[1];   
+        const fileToDeletePath=product.urlImage.split('/storage/v1/object/public/images')[1];   
         console.log(fileToDeletePath)
         const {error:deleteError} = await dbClient.storage.from("images").remove([fileToDeletePath])
         if(deleteError)console.log(deleteError)

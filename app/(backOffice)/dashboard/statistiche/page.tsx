@@ -63,6 +63,8 @@ export default function Dashboard() {
       const res=await fetch('/api/activeUsers');
       const active=await res.json();
 
+      console.log(active)
+
       setActiveUsers(active)
     }
 
